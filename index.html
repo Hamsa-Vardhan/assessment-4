@@ -8,51 +8,72 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
+    <ul class="nav nav-pills  bg-dark justify-content-first p-2 list-inline sticky-top rounded" style="opacity: 0.8;">
+        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info active" value="home"></li>
+        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="arts"></li>
+        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="science"></li>
+        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="us"></li>
+        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="world"></li>
+    </ul>
     <div class="container-fluid">
         <div class="row"></div>
     </div>
     <script>
-        fetch('https://api.nytimes.com/svc/topstories/v2/science.json?api-key=OZBC6R4G6QDlxZPfRrE3sZlgvVavydfP').then(res=>res.json()).then(data=>{
-            data.results.forEach(v=>{
-                let parent = document.createElement('div');
-                document.querySelector('.row').appendChild(parent);
-                parent.className = 'parent col-md-12 col-lg-6 mt-3';
-                let thumbnail = document.createElement('img');
-                parent.appendChild(thumbnail);
-                let card = document.createElement('div');
-                parent.appendChild(card);
-                let card_body = document.createElement('div');
-                card.appendChild(card_body);
-                let card_title = document.createElement('h4');
-                card_body.appendChild(card_title);
-                let card_subtitle = document.createElement('h5');
-                card_body.appendChild(card_subtitle);
-                card_text    = document.createElement('ul');
-                card_body.appendChild(card_text);
-                card_link   = document.createElement('a');
-                card_body.appendChild(card_link);
-                parent.setAttribute('data-value',data.results.indexOf(v));
-                card.className = 'col-7 card h-100';
-                card_body.className = 'card-body';
-                card_title.className = 'card-title';
-                card_title.textContent = v.title;
-                card_subtitle.className = 'card-subtitle text-muted';
-                card_subtitle.textContent = v.created_date.split('').slice(0,10).join('');
-                card_text.className = 'card-text text-monospace text-wrap list-unstyled';
-                card_text.innerHTML =
-                `<li>Abstract : ${v.abstract}</li>
-                <li>Byline : ${v.byline}</li>
-                <li>Section : ${v.section}</li>
-                <li>Item-Type : ${v.item_type}</li>
-                `
-                card_link.className = 'card-link';
-                card_link.href = v.url;
-                card_link.target = '_blank'
-                card_link.textContent = `View full article`
-                thumbnail.className = 'col-5 img-thumbnail img-fluid float-right h-100 w-100';
-                thumbnail.src = v.multimedia[4].url;
+        function generatecontent(val)
+        {
+            document.querySelector('.row').innerHTML = ``;
+            fetch(`https://api.nytimes.com/svc/topstories/v2/${val}.json?api-key=OZBC6R4G6QDlxZPfRrE3sZlgvVavydfP`).then(res=>res.json()).then(data=>{
+                data.results.forEach(v=>{
+                    let parent = document.createElement('div');
+                    document.querySelector('.row').appendChild(parent);
+                    parent.className = 'parent col-lg-12 col-xl-6 mt-3 align-items-center';
+                    let thumbnail = document.createElement('img');
+                    parent.appendChild(thumbnail);
+                    let card = document.createElement('div');
+                    parent.appendChild(card);
+                    let card_body = document.createElement('div');
+                    card.appendChild(card_body);
+                    let card_title = document.createElement('h4');
+                    card_body.appendChild(card_title);
+                    let card_subtitle = document.createElement('h5');
+                    card_body.appendChild(card_subtitle);
+                    card_text    = document.createElement('ul');
+                    card_body.appendChild(card_text);
+                    card_link   = document.createElement('a');
+                    card_body.appendChild(card_link);
+                    parent.setAttribute('data-value',data.results.indexOf(v));
+                    card.className = ' col-sm-9 col-md-7 card h-100 border-none';
+                    card_body.className = 'card-body';
+                    card_title.className = 'card-title';
+                    card_title.textContent = v.title;
+                    card_subtitle.className = 'card-subtitle text-muted';
+                    card_subtitle.textContent = v.created_date.split('').slice(0,10).join('');
+                    card_text.className = 'card-text text-monospace text-wrap list-unstyled';
+                    card_text.innerHTML =
+                    `<li>Abstract : ${v.abstract}</li>
+                    <li>Byline : ${v.byline}</li>
+                    <li>Section : ${v.section}</li>
+                    <li>Item-Type : ${v.item_type}</li>
+                    `
+                    card_link.className = 'card-link';
+                    card_link.href = v.url;
+                    card_link.target = '_blank'
+                    card_link.textContent = `View full article`
+                    thumbnail.className = ' col-sm-3 col-md-5 img-thumbnail float-right h-75 w-100 align-self-center';
+                    thumbnail.src = v.multimedia[4].url;
 
+                })
             })
+        }
+        let val = 'arts';
+        generatecontent(val);
+        document.querySelector('.nav').addEventListener('click',event=>{  
+            if(event.target.value != undefined)
+            {
+                console.log(event.target.value);
+                val = event.target.value;
+                generatecontent(val);
+            }  
         })
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
