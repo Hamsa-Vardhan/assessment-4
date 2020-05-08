@@ -6,10 +6,22 @@
     <title>Assessment - 4</title>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/4/40/New_York_Times_logo_variation.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body
+        {
+            background: linear-gradient(20deg,#b0afab,#ab96b0,#8fa8a4,#a0b394,#b0afab);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .active
+        {
+            background-color: dodgerblue;
+        }
+    </style>
 </head>
 <body>
     <ul class="nav nav-pills  bg-dark justify-content-first p-2 list-inline sticky-top rounded" style="opacity: 0.8;">
-        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info active" value="home"></li>
+        <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info first active" value="home"></li>
         <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="arts"></li>
         <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="science"></li>
         <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="us"></li>
@@ -26,7 +38,7 @@
                 data.results.forEach(v=>{
                     let parent = document.createElement('div');
                     document.querySelector('.row').appendChild(parent);
-                    parent.className = 'parent col-lg-12 col-xl-6 mt-3 align-items-center';
+                    parent.className = 'parent col-sm-12 col-lg-12 col-xl-6 mt-3 align-items-center bg-light';
                     let thumbnail = document.createElement('img');
                     parent.appendChild(thumbnail);
                     let card = document.createElement('div');
@@ -68,6 +80,7 @@
         let val = 'arts';
         generatecontent(val);
         document.querySelector('.nav').addEventListener('click',event=>{  
+            document.querySelector('.first').classList.remove('active');
             if(event.target.value != undefined)
             {
                 console.log(event.target.value);
