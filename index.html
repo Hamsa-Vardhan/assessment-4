@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-    <ul class="nav nav-pills  bg-dark justify-content-first p-2 list-inline sticky-top rounded" style="opacity: 0.8;">
+    <ul class="nav nav-pills  bg-light justify-content-first p-2 list-inline sticky-top rounded" style="opacity: 0.8;">
         <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info first active" value="home"></li>
         <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="arts"></li>
         <li class="nav-item mx-2"><input type="button" class="nav-link btn btn-info" value="science"></li>
@@ -54,7 +54,7 @@
                     card_link   = document.createElement('a');
                     card_body.appendChild(card_link);
                     parent.setAttribute('data-value',data.results.indexOf(v));
-                    card.className = ' col-sm-9 col-md-7 card h-100 border-none';
+                    card.className = ' col-sm-9 col-md-7 card h-100';
                     card_body.className = 'card-body';
                     card_title.className = 'card-title';
                     card_title.textContent = v.title;
